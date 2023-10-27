@@ -14,15 +14,6 @@ print("\nBy: ")
 print(colored("\tZile42O", "light_green"))
 print("\n\n")
 
-try:
-	with open('accounts.json', 'r', encoding='utf-8') as file:
-		accounts = json.load(file)
-except (FileNotFoundError, json.JSONDecodeError):
-	print(colored("Unable to load accounts.json", "red"))
-	exit
-
-print(colored("Accounts loaded, starting..", "cyan"))
-time.sleep(2)
 
 async def send_promo_messages(client, account):
 	dialogs = await client.get_dialogs()
@@ -70,6 +61,14 @@ async def reply_to_private_messages(client, account):
     return handler
 
 async def main():
+	try:
+		with open('accounts.json', 'r', encoding='utf-8') as file:
+			accounts = json.load(file)
+	except (FileNotFoundError, json.JSONDecodeError):
+		print(colored("Unable to load accounts.json", "red"))
+	exit
+	print(colored("Accounts loaded, starting..", "cyan"))
+	time.sleep(2)
 	while True:
 		tasks = []
 		for account in accounts:
